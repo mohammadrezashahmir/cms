@@ -1,0 +1,70 @@
+{% load mathfilters %}
+{% load pagination %}
+<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+    <ul class="pagination">
+        <li>
+            {% if page_obj.has_previous %}
+                <a class="pagination__link" href="?page={{ page_obj.previous_page_number }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-chevron-right w-4 h-4">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+            {% else %}
+                <a class="pagination__link text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-chevron-right w-4 h-4">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+            {% endif %}
+        </li>
+
+        {% page_range page_obj.number page_obj.paginator.num_pages as pages %}
+        {% for page in pages %}
+            <li>
+                <a class="pagination__link {% if page_obj.number == page %} pagination__link--active {% endif %}"
+                   href="?page={{ page }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {# Add an ellipsis if there's a gap between the last displayed page and the last page #}
+        {% if pages|last < page_obj.paginator.num_pages|sub:1 %}
+            <li><span class="pagination__link">...</span></li>
+        {% endif %}
+
+        {# Always show the last page #}
+        {% if pages|last < page_obj.paginator.num_pages %}
+            <li>
+                <a class="pagination__link {% if page_obj.number == page_obj.paginator.num_pages %} pagination__link--active {% endif %}"
+                   href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            </li>
+        {% endif %}
+
+        <li>
+            {% if page_obj.has_next %}
+                <a class="pagination__link" href="?page={{ page_obj.next_page_number }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-chevron-left w-4 h-4">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </a>
+            {% else %}
+                <a class="pagination__link text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-chevron-left w-4 h-4">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </a>
+            {% endif %}
+        </li>
+    </ul>
+</div>

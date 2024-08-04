@@ -1,0 +1,13 @@
+{% load webpack_loader %}
+{% load static %}
+ {% render_bundle 'staticfiles' 'js' %}
+<script src="{% static 'node_modules/jquery/dist/jquery.js' %}"></script>
+<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'node_modules/@popperjs/core/dist/umd/popper.js' %}"></script>
+<script src="{% static 'node_modules/@popperjs/core/dist/umd/popper.min.js' %}"></script>
+<script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.js' %}"></script>
+<script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'node_modules/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
+{#<script src="/static/dist/js/app.js"></script>#}
+<script src="{% static 'dist/js/custom.js' %}"></script>

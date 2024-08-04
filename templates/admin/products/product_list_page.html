@@ -1,0 +1,246 @@
+{% extends '_layout.html' %}
+{% load humanize %}
+{% block body_content %}
+    <h2 class="intro-y text-lg font-medium mt-10">
+        لیست محصولات
+    </h2>
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
+            <a class="btn btn-primary shadow-md ml-2" href="{% url 'add_product_page' %}">افزودن محصول جدید</a>
+            <div class="dropdown">
+                <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
+                    <span class="w-5 h-5 flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                 width="24" height="24"
+                                                                                 viewBox="0 0 24 24" fill="none"
+                                                                                 stroke="currentColor"
+                                                                                 stroke-width="1.5"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-linejoin="round"
+                                                                                 class="feather feather-plus w-4 h-4"><line
+                            x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19"
+                                                                        y2="12"></line></svg> </span>
+                </button>
+                <div class="dropdown-menu w-40">
+                    <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                        <a href=""
+                           class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-printer w-4 h-4 ml-2">
+                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                <rect x="6" y="14" width="12" height="8"></rect>
+                            </svg>
+                            پرینت</a>
+                        <a href=""
+                           class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file-text w-4 h-4 ml-2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            خروجی اکسل </a>
+                        <a href=""
+                           class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file-text w-4 h-4 ml-2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            خروجی پی‌دی‌اف </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden md:block mx-auto text-gray-600">نمایش {{ page_obj.start_index }}
+                تا {{ page_obj.end_index }} از {{ count_all }}
+                داده
+            </div>
+            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+                <div class="w-56 relative text-gray-700 dark:text-gray-300">
+                    <input type="text" class="form-control w-56 box pl-10 placeholder-theme-13" name="search"
+                           placeholder="جستجو...">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <div class="mt-3">
+                    <a href="{% url 'product_list_page' %}" class="text-theme-10">نمایش همه</a>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN: Data List -->
+        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                <tr>
+                    <th class="whitespace-nowrap">تصاویر</th>
+                    <th class="whitespace-nowrap">نام محصول</th>
+                    <th class="whitespace-nowrap">قیمت</th>
+                    <th class="text-center whitespace-nowrap">موجودی</th>
+                    <th class="text-center whitespace-nowrap">وضعیت</th>
+                    <th class="text-center whitespace-nowrap">فعالیت</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr class="intro-x">
+                        <td class="w-40 gallery">
+                            <div class="flex">
+                                {% for img in product.productsgallery_set.all|slice:":3" %}
+                                    <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                                        <img alt="عکس محصول" class="tooltip rounded-full"
+                                             src="{{ img.image.url }}">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <a href="" class="font-medium whitespace-nowrap">{{ product.title }}</a>
+                            <div class="text-gray-600 text-xs whitespace-nowrap mt-0.5">
+                                <ul class="flex-wrap">
+                                    {% for category in product.category.all %}
+                                        <li>
+                                            {{ category.title }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="" class="font-medium whitespace-nowrap">{{ product.price|intcomma|intword }}</a>
+                        </td>
+                        <td class="text-center">{{ product.count }}</td>
+                        <td class="w-40">
+                            {% if product.is_active %}
+                                <div class="flex items-center justify-center text-theme-9">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-check-square w-4 h-4 ml-2">
+                                        <polyline points="9 11 12 14 22 4"></polyline>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    فعال
+                                </div>
+                            {% else %}
+                                <div class="flex items-center justify-center text-theme-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-check-square w-4 h-4 ml-2">
+                                        <polyline points="9 11 12 14 22 4"></polyline>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    غیرفعال
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="table-report__action w-56">
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center ml-3"
+                                   href="{% url 'edit_product_page' product_id=product.id %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-check-square w-4 h-4 ml-1">
+                                        <polyline points="9 11 12 14 22 4"></polyline>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    ویرایش</a>
+                                <a class="flex items-center text-theme-6 cursor-pointer delete_btn" type="button"
+                                   data-bs-toggle="modal" data-bs-target="#delete-confirmation-modal"
+                                   data-id="{{ product.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 ml-1">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                    </svg>
+                                    حذف </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- END: Data List -->
+        <!-- BEGIN: Pagination -->
+        {% include 'includes/paginate.html' with page_obj=page_obj paginator=paginator %}
+        <!-- END: Pagination -->
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="delete-confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <input type="hidden" name="product_id" id="product_id"/>
+                    <div class="p-5 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-x-circle w-16 h-16 text-theme-6 mx-auto mt-3">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                        <div class="text-3xl mt-5">مطمئن هستید؟</div>
+                        <div class="text-gray-600 mt-2">
+                            آیا از حذف این داده مطمئن هستید؟
+                            <br>
+                            در صورت موافقت این داده برنخواهد گشت
+                        </div>
+                    </div>
+                    <div class="px-5 pb-8 text-center ">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary w-24 ml-2">لغو
+                        </button>
+                        <button id="remove-product" type="button" class="btn btn-danger w-24"
+                                onclick="delete_product()" data-bs-dismiss="modal">حذف
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $(document).ready(() => {
+            const inputs = document.querySelectorAll('input[name],select[name]');
+            inputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    sendInputValuesToUrl(input);
+                });
+            });
+        })
+        //add data:
+        $('.delete_btn').on('click', (e) => {
+            $('#product_id').val(e.currentTarget.getAttribute('data-id'));
+        })
+
+        //delete product:
+        function delete_product() {
+            let product_id = $('#product_id').val()
+            $.get('/admin/products/delete-product/', {
+                product_id,
+            }).then(res => {
+                show_message(res.title, res.message, res.icon)
+                if (res.icon === 'success') {
+                    setTimeout(() => {
+                        location.reload()
+                    }, 1000)
+                }
+            })
+        }
+    </script>
+{% endblock %}
