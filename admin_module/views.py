@@ -14,3 +14,9 @@ def header_references_partial(request):
 
 def footer_references_partial(request):
     return render(request, 'admin/main-page-partial/footer-references.html')
+
+
+def nav_side_partial(request):
+    return render(request, 'admin/main-page-partial/nav-side.html')
+
+

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,7 +71,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',
-                 ]
+        ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -128,18 +127,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
-STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-    os.path.join(FRONTEND_DIR, "assets"),
-)
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'dist/',  # must end with slash
-        'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json')
-    }
-}
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email:
@@ -165,4 +152,22 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
     ]
+}
+
+# webpack:
+
+FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(FRONTEND_DIR, "assets"),
+    # os.path.join(FRONTEND_DIR, "node_modules"),
+)
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',  # must end with slash
+        'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json')
+    }
 }

@@ -1,11 +1,16 @@
+{% load static %}
+{% load webpack_loader %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
-صفحه کاربری
+    {% render_bundle 'staticfiles' 'css' %}
 
+</head>
+<body id="root">
+صفحه کاربری
+ {% render_bundle 'staticfiles' 'js' %}
+<script src="{% static 'dist/js/app.js' %}"></script>
 </body>
 </html>
