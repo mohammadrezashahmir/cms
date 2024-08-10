@@ -20,3 +20,5 @@ def nav_side_partial(request):
     return render(request, 'admin/main-page-partial/nav-side.html')
 
 
+def nav_side_mb_partial(request):
+    return render(request, 'admin/main-page-partial/nav-side-mb.html')

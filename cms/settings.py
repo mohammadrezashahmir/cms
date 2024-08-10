@@ -162,7 +162,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     os.path.join(FRONTEND_DIR, "assets"),
-    # os.path.join(FRONTEND_DIR, "node_modules"),
+    os.path.join(FRONTEND_DIR, "node_modules"),
 )
 
 WEBPACK_LOADER = {
