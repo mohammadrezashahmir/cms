@@ -4359,7 +4359,7 @@ img, video {
 .login:before {
     content: "";
     margin-right: -48%;
-    background-image: url(../images/bg-login-page.svg);
+    background-image: url('../images/bg-login-page.svg');
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: 100%;
@@ -4389,7 +4389,7 @@ img, video {
 }
 
 .dark .login:before {
-    background-image: url(../images/bg-login-page-dark.svg)
+    background-image: url('../images/bg-login-page-dark.svg')
 }
 
 @media (max-width: 1279px) {
