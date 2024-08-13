@@ -10,6 +10,7 @@ var config = {
         alias: {
             '@': path.resolve(__dirname, 'src/'),
             '@django': path.resolve(__dirname, '../static/'),
+
         }
     },
     output: {
