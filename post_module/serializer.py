@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PostsCategory, PostsTag
+from .models import PostsCategory, PostsTag, Posts, PostsGallery
 
 
 class postCategorySerializer(serializers.ModelSerializer):
@@ -13,8 +13,22 @@ class postCategorySerializer(serializers.ModelSerializer):
 
 class postTagSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PostsCategory
+        model = PostsTag
         fields = [
             'id',
             'title',
         ]
+
+
+class PostsGallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostsGallery
+        fields = ['image']
+
+
+class postsSerializer(serializers.ModelSerializer):
+    gallery = PostsGallerySerializer(many=True, required=False)
+
+    class Meta:
+        model = Posts
+        fields = "__all__"

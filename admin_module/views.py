@@ -22,3 +22,11 @@ def nav_side_partial(request):
 
 def nav_side_mb_partial(request):
     return render(request, 'admin/main-page-partial/nav-side-mb.html')
+
+
+def header_partial(request):
+    return render(request, 'admin/main-page-partial/header.html')
+
+
+def redirect_to_layout(request):
+    return render(request, '_layout.html')

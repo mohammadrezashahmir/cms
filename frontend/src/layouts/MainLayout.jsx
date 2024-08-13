@@ -1,6 +1,6 @@
 import React from 'react'
-import NavSideMb from '../components/navSideMb'
-import NavSide from '../components/navSide'
+import NavSideMb from '../components/navSideMb.jsx'
+import NavSide from '../components/navSide.jsx'
 import { Outlet } from 'react-router-dom'
 function MainLayout() {
     return (
