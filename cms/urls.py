@@ -9,8 +9,11 @@ urlpatterns = [
     path('api/', include('api_module.urls')),
     path('admin/', include('admin_module.urls')),
     path('user/', include('user_module.urls')),
-    re_path(r'^.*$', redirect_to_layout),
 ]
 urlpatterns = urlpatterns + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
+
+urlpatterns += [
+    re_path(r'^(?!medias/|static/).*$', redirect_to_layout),
+]

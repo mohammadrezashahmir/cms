@@ -7,7 +7,11 @@ from django.utils.crypto import get_random_string
 from django.utils.decorators import method_decorator
 from django.views import View
 from rest_framework import generics
-from .serializer import usersSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .serializer import usersSerializer,currentUserSerializer
 from .forms import register_form, login_form, forget_password_form, reset_password_form, change_password_form
 from .models import User
 from services_module.send_email import send_email
@@ -207,3 +211,12 @@ def logout_user(request: HttpRequest):
 class getAdminUsers(generics.ListAPIView):
     queryset = User.objects.filter(is_active=True, is_superuser=True)
     serializer_class = usersSerializer
+
+
+class currentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = currentUserSerializer(user)
+        return Response(serializer.data)

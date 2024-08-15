@@ -7,7 +7,6 @@ export const getDataFromServer = async (url) => {
         }
     })
     console.log(response.data);
-
     return response.data
 }
 export const postDataToServer = async (url, data) => {
@@ -18,6 +17,5 @@ export const postDataToServer = async (url, data) => {
         }
     })
     console.log(response.data);
-
     return response.data
 }

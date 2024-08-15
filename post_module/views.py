@@ -10,20 +10,21 @@ from .serializer import postCategorySerializer, postTagSerializer, postsSerializ
 
 
 class getPostCategory(generics.ListAPIView):
-    queryset = PostsCategory.objects.filter(is_active=True)
+    queryset = PostsCategory.objects.all()
     serializer_class = postCategorySerializer
 
 
 class getPostTag(generics.ListAPIView):
-    queryset = PostsTag.objects.filter(is_active=True)
+    queryset = PostsTag.objects.all()
     serializer_class = postTagSerializer
 
 
 class postsAPI(viewsets.ModelViewSet):
-    queryset = Posts.objects.filter(is_published=True)
+    queryset = Posts.objects.filter(is_published=True).order_by('-date')
     serializer_class = postsSerializer
-
+    
     def perform_create(self, serializer):
+        print(self.request.POST)
         gallery_files = self.request.FILES.getlist('gallery')
         post_id = serializer.save().id
         for file in gallery_files:

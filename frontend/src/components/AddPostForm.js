@@ -1,13 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+
+// package:
+
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import {getDataFromServer, postDataToServer} from '@/services/api';
 import Select from 'react-select'
-import {ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {convertToFormData} from "@/services/helper";
+
+//my module:
+
+import { getDataFromServer, postDataToServer } from '../services/api';
+import { convertToFormData } from "../services/helper";
 
 function AddPostForm() {
     const [fetchedData, setFetchedData] = useState({
@@ -55,7 +61,7 @@ function AddPostForm() {
                     show_author: true,
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values, {resetForm}) => {
+                onSubmit={(values, { resetForm }) => {
                     const formData = convertToFormData(values);
                     postDataToServer('/api/posts/listCreate/', formData)
                         .then((res) => {
@@ -70,7 +76,7 @@ function AddPostForm() {
 
                 }}
             >
-                {({setFieldValue, values}) => (
+                {({ setFieldValue, values }) => (
                     <Form className="content">
                         <div className="intro-y flex flex-col sm:flex-row items-center mt-8">
                             <h2 className="text-lg font-medium ml-auto">افزودن پست جدید</h2>
@@ -90,16 +96,16 @@ function AddPostForm() {
                                     className="intro-y form-control py-3 px-4 box pl-10 placeholder-theme-13"
                                     placeholder="عنوان"
                                 />
-                                <ErrorMessage name="title" component="div" className="text-theme-6 text-lg mt-1"/>
+                                <ErrorMessage name="title" component="div" className="text-theme-6 text-lg mt-1" />
 
                                 <div className="post intro-y overflow-hidden box mt-5">
                                     <div className="post__content tab-content">
                                         <div id="content" className="tab-pane p-5 active" role="tabpanel"
-                                             aria-labelledby="content-tab">
+                                            aria-labelledby="content-tab">
                                             <div className="border border-gray-200 dark:border-dark-5 rounded-md p-5">
                                                 <div
                                                     className="font-medium flex items-center border-b border-gray-200 dark:border-dark-5 pb-5">
-                                                    <i data-feather="chevron-down" className="w-4 h-4 ml-2"/> محتوای متن
+                                                    <i data-feather="chevron-down" className="w-4 h-4 ml-2" /> محتوای متن
                                                 </div>
                                                 <div className="mt-5">
                                                     <ReactQuill
@@ -108,7 +114,7 @@ function AddPostForm() {
                                                         onChange={(text) => setFieldValue('content', text)}
                                                     />
                                                     <ErrorMessage name="content" component="div"
-                                                                  className="text-theme-6 text-lg mt-1"/>
+                                                        className="text-theme-6 text-lg mt-1" />
                                                 </div>
                                             </div>
 
@@ -116,7 +122,7 @@ function AddPostForm() {
                                                 className="border border-gray-200 dark:border-dark-5 rounded-md p-5 mt-5">
                                                 <div
                                                     className="font-medium flex items-center border-b border-gray-200 dark:border-dark-5 pb-5">
-                                                    <i data-feather="chevron-down" className="w-4 h-4 ml-2"/> زیرنویس و
+                                                    <i data-feather="chevron-down" className="w-4 h-4 ml-2" /> زیرنویس و
                                                     تصاویر
                                                 </div>
                                                 <div className="mt-5">
@@ -130,7 +136,7 @@ function AddPostForm() {
                                                             placeholder="کپشن را بنویسید"
                                                         />
                                                         <ErrorMessage name="caption" component="div"
-                                                                      className="text-theme-6 text-lg mt-1"/>
+                                                            className="text-theme-6 text-lg mt-1" />
 
                                                     </div>
                                                     <div className="mt-3">
@@ -152,7 +158,7 @@ function AddPostForm() {
 
                                                         </div>
                                                         <ErrorMessage name="main_image" component="div"
-                                                                      className="text-theme-6 text-lg mt-1"/>
+                                                            className="text-theme-6 text-lg mt-1" />
                                                         <label className="form-label mt-3">آپلود گالری تصاویر</label>
                                                         <div
                                                             className="border-2  border-dashed dark:border-dark-5 rounded-md p-3">
@@ -196,7 +202,7 @@ function AddPostForm() {
                                             } : null}
                                         />
                                         <ErrorMessage name="author" component="div"
-                                                      className="text-theme-6 text-lg mt-1"/>
+                                            className="text-theme-6 text-lg mt-1" />
                                     </div>
                                     <div className="mt-3">
                                         <label htmlFor="category" className="form-label">دسته‌بندی</label>
@@ -211,7 +217,7 @@ function AddPostForm() {
                                             isMulti
                                         />
                                         <ErrorMessage name="category" component="div"
-                                                      className="text-theme-6 text-lg mt-1"/>
+                                            className="text-theme-6 text-lg mt-1" />
                                     </div>
                                     <div className="mt-3">
                                         <label htmlFor="tags" className="form-label">برچسب‌ها</label>
@@ -226,17 +232,17 @@ function AddPostForm() {
                                             isMulti
                                         />
                                         <ErrorMessage name="tags" component="div"
-                                                      className="text-theme-6 text-lg mt-1"/>
+                                            className="text-theme-6 text-lg mt-1" />
                                     </div>
                                     <div className="form-check flex-col items-start mt-3">
                                         <label htmlFor="is_published"
-                                               className="form-check-label ml-0 mb-2">منتشرشده</label>
-                                        <Field type="checkbox" name="is_published" className="form-check-switch"/>
+                                            className="form-check-label ml-0 mb-2">منتشرشده</label>
+                                        <Field type="checkbox" name="is_published" className="form-check-switch" />
                                     </div>
                                     <div className="form-check flex-col items-start mt-3">
                                         <label htmlFor="show_author" className="form-check-label ml-0 mb-2">نمایش نام
                                             نویسنده</label>
-                                        <Field type="checkbox" name="show_author" className="form-check-switch"/>
+                                        <Field type="checkbox" name="show_author" className="form-check-switch" />
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +251,7 @@ function AddPostForm() {
                     </Form>
                 )}
             </Formik>
-            <ToastContainer/>
+            <ToastContainer />
         </>
     );
 }

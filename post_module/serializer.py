@@ -1,5 +1,8 @@
 from rest_framework import serializers
+
+from user_module.models import User
 from .models import PostsCategory, PostsTag, Posts, PostsGallery
+from user_module.serializer import usersSerializer
 
 
 class postCategorySerializer(serializers.ModelSerializer):
@@ -28,7 +31,17 @@ class PostsGallerySerializer(serializers.ModelSerializer):
 
 class postsSerializer(serializers.ModelSerializer):
     gallery = PostsGallerySerializer(many=True, required=False)
+    tags = serializers.PrimaryKeyRelatedField(many=True, queryset=PostsTag.objects.all())
+    category = serializers.PrimaryKeyRelatedField(many=True, queryset=PostsCategory.objects.all())
+    author = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Posts
         fields = "__all__"
+
+    def to_representation(self, instance):
+        # GET: 
+        self.fields['author'] = usersSerializer()
+        self.fields['tags'] = postTagSerializer(many=True)
+        self.fields['category'] = postCategorySerializer(many=True)
+        return super(postsSerializer, self).to_representation(instance)
