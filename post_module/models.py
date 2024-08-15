@@ -6,13 +6,12 @@ class PostsCategory(models.Model):
     parent = models.ForeignKey('PostsCategory', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
     url_title = models.CharField(max_length=200)
-    is_active = models.BooleanField(default=True)
+
 
 
 class PostsTag(models.Model):
     title = models.CharField(max_length=200)
     url_title = models.CharField(max_length=200)
-    is_active = models.BooleanField(default=True)
 
 
 class Posts(models.Model):
