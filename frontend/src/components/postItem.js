@@ -28,10 +28,10 @@ function PostItem({ post }) {
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="dropdown-menu__content box dark:bg-dark-1 p-2">
                             <Dropdown.Item className="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <Link to={`admin/posts/edit/:${post.id}`}><IoPencil className="ml-2 text-xl" /> ویرایش پست </Link>
+                                <Link className='flex' to={`/admin/posts/edit/${post.id}`}><IoPencil className="ml-2 text-xl" /> ویرایش پست </Link>
                             </Dropdown.Item>
                             <Dropdown.Item className="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <Link to={`admin/posts/delete/:${post.id}`}> <CiTrash className="ml-2 text-xl" /> حذف پست </Link>
+                                <Link className='flex' to={`/admin/posts/delete/${post.id}`}> <CiTrash className="ml-2 text-xl" /> حذف پست </Link>
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

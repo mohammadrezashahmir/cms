@@ -23,14 +23,14 @@ class postTagSerializer(serializers.ModelSerializer):
         ]
 
 
-class PostsGallerySerializer(serializers.ModelSerializer):
+class postsGallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = PostsGallery
         fields = ['image']
 
 
 class postsSerializer(serializers.ModelSerializer):
-    gallery = PostsGallerySerializer(many=True, required=False)
+    gallery = postsGallerySerializer(many=True, required=False)
     tags = serializers.PrimaryKeyRelatedField(many=True, queryset=PostsTag.objects.all())
     category = serializers.PrimaryKeyRelatedField(many=True, queryset=PostsCategory.objects.all())
     author = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
@@ -44,4 +44,5 @@ class postsSerializer(serializers.ModelSerializer):
         self.fields['author'] = usersSerializer()
         self.fields['tags'] = postTagSerializer(many=True)
         self.fields['category'] = postCategorySerializer(many=True)
+        self.fields['gallery'] = postsGallerySerializer(many=True)  
         return super(postsSerializer, self).to_representation(instance)

@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { getDataFromServer } from '../services/api'
-import PostItem from './postItem'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+
+// components:
+import PostItem from './postItem'
+// context:
+import { postsContext } from '../context/PostsContext'
 function Posts() {
-    const [posts, setPosts] = useState([])
-    useEffect(() => {
-        const fetchAPI = async () => {
-            setPosts(await getDataFromServer('/api/posts/listCreate/'))
-        }
-        fetchAPI();
-    }, [])
+    const posts = useContext(postsContext)
     const postList = []
     posts.forEach(item => {
         postList.push(<PostItem key={item.id} post={item} />)
@@ -36,7 +33,7 @@ function Posts() {
                 </div>
             </div>
             <div className="intro-y grid grid-cols-12 gap-6 mt-5">
-                {postList.map(item => item )}
+                {postList.map(item => item)}
                 <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
                     <ul className="pagination">
                         <li>
@@ -64,10 +61,8 @@ function Posts() {
                         <option>50</option>
                     </select>
                 </div>
-
             </div>
         </>
-
     )
 }
 
