@@ -28,7 +28,7 @@ class Posts(models.Model):
 
 
 class PostsGallery(models.Model):
-    post = models.ForeignKey('Posts', on_delete=models.CASCADE)
+    post = models.ForeignKey('Posts', related_name='gallery', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='post_images')
 
 
