@@ -6,21 +6,21 @@ class PostsCategory(models.Model):
     parent = models.ForeignKey('PostsCategory', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
     url_title = models.CharField(max_length=200)
-    is_active = models.BooleanField(default=True)
+
 
 
 class PostsTag(models.Model):
     title = models.CharField(max_length=200)
     url_title = models.CharField(max_length=200)
-    is_active = models.BooleanField(default=True)
 
 
 class Posts(models.Model):
     title = models.CharField(max_length=300)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True, editable=False)
+    date = models.DateTimeField(auto_now_add=True, editable=False)
     category = models.ManyToManyField('PostsCategory')
+    tags = models.ManyToManyField('PostsTag')
     is_published = models.BooleanField(default=False)
     show_author = models.BooleanField(default=True)
     main_image = models.ImageField(upload_to='post_images')
@@ -28,7 +28,7 @@ class Posts(models.Model):
 
 
 class PostsGallery(models.Model):
-    post = models.ForeignKey('Posts', on_delete=models.CASCADE)
+    post = models.ForeignKey('Posts', related_name='gallery', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='post_images')
 
 

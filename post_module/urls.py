@@ -1,8 +1,14 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
 from . import views
 
+router = DefaultRouter()
+router.register('', views.postsAPI)
 urlpatterns = [
+    # api:
+    path('manage/', include(router.urls)),
     path('getCategory/', views.getPostCategory.as_view()),
     path('getTag/', views.getPostTag.as_view()),
-    path('add-post/', views.add_post.as_view(),name='add_post_page')
+
 ]

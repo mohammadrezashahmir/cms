@@ -1,73 +1,74 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 function NavSide() {
     return (
-        <nav class="side-nav">
-            <a href="" class="intro-x flex items-center pr-5 pt-4">
-                <img alt="Rubick Tailwind HTML Admin Template" class="w-6" src="/static/dist/images/logo.svg"/>
-                    <span class="hidden xl:block text-white text-lg mr-3">رو<span class="font-medium">بیک</span> </span>
-            </a>
-            <div class="side-nav__devider my-6"></div>
+        <nav className="side-nav">
+            <Link to className="intro-x flex items-center pr-5 pt-4">
+                <img alt="Rubick Tailwind HTML Admin Template" className="w-6" src="/static/dist/images/logo.svg" />
+                <span className="hidden xl:block text-white text-lg mr-3">رو<span className="font-medium">بیک</span> </span>
+            </Link>
+            <div className="side-nav__devider my-6" />
             <ul>
                 <li>
-                    <a href="{% url 'admin_dashboard_page' %}" class="side-menu">
-                        <div class="side-menu__icon"><i data-feather="home"></i></div>
-                        <div class="side-menu__title">
+                    <Link to="{% url 'admin_dashboard_page' %}" className="side-menu">
+                        <div className="side-menu__icon"><i data-feather="home" /></div>
+                        <div className="side-menu__title">
                             دشبرد
                         </div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="{% url 'add_post_page' %}" class="side-menu">
-                        <div class="side-menu__icon"><i data-feather="file-text"></i></div>
-                        <div class="side-menu__title"> پست</div>
-                    </a>
+                    <Link to="{% url 'add_post_page' %}" className="side-menu">
+                        <div className="side-menu__icon"><i data-feather="file-text" /></div>
+                        <div className="side-menu__title"> پست</div>
+                    </Link>
                 </li>
-                <li class="side-nav__devider my-6"></li>
+                <li className="side-nav__devider my-6" />
                 <li>
-                    <a href="javascript:;" class="side-menu">
-                        <div class="side-menu__icon"><i data-feather="edit"></i></div>
-                        <div class="side-menu__title">
+                    <Link to="javascript:;" className="side-menu">
+                        <div className="side-menu__icon"><i data-feather="edit" /></div>
+                        <div className="side-menu__title">
                             کراد
-                            <div class="side-menu__sub-icon "><i data-feather="chevron-down"></i></div>
+                            <div className="side-menu__sub-icon "><i data-feather="chevron-down" /></div>
                         </div>
-                    </a>
-                    <ul class="">
+                    </Link>
+                    <ul className>
                         <li>
-                            <a href="{% url 'product_list_page' %}" class="side-menu">
-                                <div class="side-menu__icon"><i data-feather="activity"></i></div>
-                                <div class="side-menu__title"> لیست محصولات</div>
-                            </a>
+                            <Link to="{% url 'product_list_page' %}" className="side-menu">
+                                <div className="side-menu__icon"><i data-feather="activity" /></div>
+                                <div className="side-menu__title"> لیست محصولات</div>
+                            </Link>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="javascript:;" class="side-menu">
-                        <div class="side-menu__icon"><i data-feather="users"></i></div>
-                        <div class="side-menu__title">
+                    <Link to="javascript:;" className="side-menu">
+                        <div className="side-menu__icon"><i data-feather="users" /></div>
+                        <div className="side-menu__title">
                             کاربران
-                            <div class="side-menu__sub-icon "><i data-feather="chevron-down"></i></div>
+                            <div className="side-menu__sub-icon "><i data-feather="chevron-down" /></div>
                         </div>
-                    </a>
-                    <ul class="">
+                    </Link>
+                    <ul className>
                         <li>
-                            <a href="side-menu-light-users-layout-1.html" class="side-menu">
-                                <div class="side-menu__icon"><i data-feather="activity"></i></div>
-                                <div class="side-menu__title"> چینش 1</div>
-                            </a>
+                            <Link to="side-menu-light-users-layout-1.html" className="side-menu">
+                                <div className="side-menu__icon"><i data-feather="activity" /></div>
+                                <div className="side-menu__title"> چینش 1</div>
+                            </Link>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="{% url 'admin_dashboard_page' %}" class="side-menu">
-                        <div class="side-menu__icon"><i data-feather="trello"></i></div>
-                        <div class="side-menu__title">
+                    <Link to="{% url 'admin_dashboard_page' %}" className="side-menu">
+                        <div className="side-menu__icon"><i data-feather="trello" /></div>
+                        <div className="side-menu__title">
                             پروفایل
                         </div>
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </nav>
+
     )
 }
 

@@ -1,5 +1,6 @@
 const path = require("path");
 const BundleTracker = require('webpack-bundle-tracker');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var config = {
     context: __dirname,
     entry: {
@@ -10,16 +11,18 @@ var config = {
         alias: {
             '@': path.resolve(__dirname, 'src/'),
             '@django': path.resolve(__dirname, '../static/'),
+
         }
     },
     output: {
         path: path.join(__dirname, './assets/dist'),
         filename: "[name]-[hash].js",
-        publicPath: '/static/dist/'
+        publicPath: '/static/dist/',
     },
 
 
     plugins: [
+        new CleanWebpackPlugin(),
         new BundleTracker({filename: './webpack-stats.json'}),
     ],
     devtool: 'cheap-module-eval-source-map',
@@ -46,12 +49,6 @@ var config = {
                 ],
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader',
-                ],
-            },
-            {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 use: [
                     {
@@ -65,6 +62,11 @@ var config = {
                 ],
             },
         ]
+    },
+    watchOptions: {
+        ignored: /node_modules/,  // نادیده گرفتن تغییرات در node_modules
+        aggregateTimeout: 300,    // تاخیر 300 میلی‌ثانیه برای build
+        poll: 1000,               // بررسی تغییرات هر 1000 میلی‌ثانیه
     }
 }
 

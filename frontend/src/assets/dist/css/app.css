@@ -1,41 +1,36 @@
 ﻿@charset "UTF-8";
-/*! tailwindcss v2.1.2 | MIT License | https://tailwindcss.com*/
 
-/*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
-/* adding persian font */
-
-/*  */
 @font-face {
     font-family: 'IRANYekan-B';
     font-style: normal;
     font-weight: 600;
-    src: url('../fonts/iranyekanwebbold.eot'); /* IE9 Compat Modes */
-    src: url('../fonts/iranyekanwebbold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../fonts/iranyekanwebbold.woff2') format('woff2'), /* Super Modern Browsers */
-         url('../fonts/iranyekanwebbold.woff') format('woff'), /* Pretty Modern Browsers */
-         url('../fonts/iranyekanwebbold.ttf') format('truetype'); /* Safari, Android, iOS */
+    src: url('/static/dist/fonts/iranyekanwebbold.eot'); 
+    src: url('/static/dist/fonts/iranyekanwebbold.eot?#iefix') format('embedded-opentype'), 
+         url('/static/dist/fonts/iranyekanwebbold.woff2') format('woff2'),
+         url('/static/dist/fonts/iranyekanwebbold.woff') format('woff'), 
+         url('/static/dist/fonts/iranyekanwebbold.ttf') format('truetype'); 
 }
 
 @font-face {
     font-family: 'IRANYekan-L';
     font-style: normal;
     font-weight: 300;
-    src: url('../fonts/iranyekanweblight.eot'); /* IE9 Compat Modes */
-    src: url('../fonts/iranyekanweblight.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../fonts/iranyekanweblight.woff2') format('woff2'), /* Super Modern Browsers */
-         url('../fonts/iranyekanweblight.woff') format('woff'), /* Pretty Modern Browsers */
-         url('../fonts/iranyekanweblight.ttf') format('truetype'); /* Safari, Android, iOS */
+    src: url('/static/dist/fonts/iranyekanweblight.eot'); 
+    src: url('/static/dist/fonts/iranyekanweblight.eot?#iefix') format('embedded-opentype'),
+         url('/static/dist/fonts/iranyekanweblight.woff2') format('woff2'), 
+         url('/static/dist/fonts/iranyekanweblight.woff') format('woff'), 
+         url('/static/dist/fonts/iranyekanweblight.ttf') format('truetype'); 
 }
 
 @font-face {
     font-family: 'IRANYekan';
     font-style: normal;
     font-weight: 400;
-    src: url('../fonts/iranyekanwebregular.eot'); /* IE9 Compat Modes */
-    src: url('../fonts/iranyekanwebregular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../fonts/iranyekanwebregular.woff') format('woff'), /* Pretty Modern Browsers */
-         url('../fonts/iranyekanwebregular.ttf') format('truetype'); /* Safari, Android, iOS */
+    src: url('/static/dist/fonts/iranyekanwebregular.eot'); 
+    src: url('/static/dist/fonts/iranyekanwebregular.eot?#iefix') format('embedded-opentype'), 
+         url('/static/dist/fonts/iranyekanwebregular.woff') format('woff'), 
+         url('/static/dist/fonts/iranyekanwebregular.ttf') format('truetype'); 
 }
 
 
@@ -4359,12 +4354,12 @@ img, video {
 .login:before {
     content: "";
     margin-right: -48%;
-    background-image: url('../images/bg-login-page.svg');
+    top:0;
+    background-image: url('/static/dist/images/bg-login-page.svg');
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: 100%;
     position: absolute;
-    top: 0;
     right: 0;
     height: 100%;
     width: 100%;
@@ -4389,7 +4384,7 @@ img, video {
 }
 
 .dark .login:before {
-    background-image: url('../images/bg-login-page-dark.svg')
+    background-image: url('/static/dist/images/bg-login-page-dark.svg')
 }
 
 @media (max-width: 1279px) {
@@ -16614,4 +16609,11 @@ div#today-schedule {
 
 mark.p-1.bg-yellow-200 {
     margin: 0 4px;
+}
+
+.ql-editor p,
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3 {
+    font-family: 'IRANYekan', sans-serif !important;
 }
