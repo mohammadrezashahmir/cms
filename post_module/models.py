@@ -8,7 +8,6 @@ class PostsCategory(models.Model):
     url_title = models.CharField(max_length=200)
 
 
-
 class PostsTag(models.Model):
     title = models.CharField(max_length=200)
     url_title = models.CharField(max_length=200)
@@ -41,7 +40,7 @@ class PostVisit(models.Model):
 class PostsComment(models.Model):
     parent = models.ForeignKey('PostsComment', on_delete=models.CASCADE, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True, editable=False)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comment')
+    date = models.DateTimeField(auto_now_add=True, editable=False)
     content = models.TextField()
     is_active = models.BooleanField(default=True)

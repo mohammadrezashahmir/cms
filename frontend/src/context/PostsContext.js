@@ -1,21 +1,29 @@
-import React, {createContext, useState, useEffect} from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
-import {getDataFromServer} from "../services/api";
-
+import { getDataFromServer, deleteDataFromServer } from "../services/api";
 export const postsContext = createContext()
-const PostsContextProvider = ({children}) => {
+const PostsContextProvider = ({ children }) => {
     const [posts, setPosts] = useState()
+    const deletePost = async (id) => {
+        try {
+            await deleteDataFromServer(`/api/posts/manage/${id}/`);
+            const updatedPosts = posts.filter((item) => item.id !== id);
+            setPosts(updatedPosts);
+        } catch (error){
+            console.error("Failed to delete post:", error);
+        }
+    };
     useEffect(() => {
         const fetchAPI = async () => {
-            setPosts(await getDataFromServer('/api/posts/manage/'))
+            setPosts(await getDataFromServer('/api/posts/list/'))
         }
         fetchAPI()
     }, [])
 
-    console.log(posts);
-    
+
+
     return (
-        <postsContext.Provider value={posts}>
+        <postsContext.Provider value={{posts,deletePost}}>
             {posts ? children : 'Loading'}
         </postsContext.Provider>
     );

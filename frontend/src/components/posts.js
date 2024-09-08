@@ -1,15 +1,27 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
-
+import React, {useContext, useState} from 'react'
+import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 // components:
 import PostItem from './postItem'
 // context:
-import { postsContext } from '../context/PostsContext'
+import {postsContext} from '../context/PostsContext'
+import useConfirmationModal from "../hooks/confirmation";
+import ConfirmationModal from "../components/confirmationModal";
+import {ToastContainer} from "react-toastify";
+
 function Posts() {
-    const posts = useContext(postsContext)
+    const {posts, deletePost} = useContext(postsContext);
+    const {
+        showModal,
+        handleShowModal,
+        handleConfirm,
+        handleCloseModal,
+    } = useConfirmationModal(deletePost);
+
     const postList = []
     posts.forEach(item => {
-        postList.push(<PostItem key={item.id} post={item} />)
+        postList.push(<PostItem key={item.id} post={item} handleShow={handleShowModal}/>)
     })
     return (
         <>
@@ -20,13 +32,19 @@ function Posts() {
                 <div className="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <Link to={'/admin/posts/add-post/'} className="btn btn-primary shadow-md ml-2"> افزودن پست </Link>
                     <div className="dropdown ml-auto sm:ml-0">
-                        <button className="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
-                            <span className="w-5 h-5 flex items-center justify-center"> <i className="w-4 h-4" data-feather="plus" /> </span>
+                        <button className="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300"
+                                aria-expanded="false">
+                            <span className="w-5 h-5 flex items-center justify-center"> <i className="w-4 h-4"
+                                                                                           data-feather="plus"/> </span>
                         </button>
                         <div className="dropdown-menu w-40">
                             <div className="dropdown-menu__content box dark:bg-dark-1 p-2">
-                                <a href className="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="share-2" className="w-4 h-4 ml-2" /> اشتراک پست </a>
-                                <a href className="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="download" className="w-4 h-4 ml-2" /> دانلود پست </a>
+                                <a href
+                                   className="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                    <i data-feather="share-2" className="w-4 h-4 ml-2"/> اشتراک پست </a>
+                                <a href
+                                   className="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                                    <i data-feather="download" className="w-4 h-4 ml-2"/> دانلود پست </a>
                             </div>
                         </div>
                     </div>
@@ -37,21 +55,25 @@ function Posts() {
                 <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
                     <ul className="pagination">
                         <li>
-                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevrons-right" /> </a>
+                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevrons-right"/>
+                            </a>
                         </li>
                         <li>
-                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevron-right" /> </a>
+                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevron-right"/>
+                            </a>
                         </li>
-                        <li> <a className="pagination__link" href>...</a> </li>
-                        <li> <a className="pagination__link" href>1</a> </li>
-                        <li> <a className="pagination__link pagination__link--active" href>2</a> </li>
-                        <li> <a className="pagination__link" href>3</a> </li>
-                        <li> <a className="pagination__link" href>...</a> </li>
+                        <li><a className="pagination__link" href>...</a></li>
+                        <li><a className="pagination__link" href>1</a></li>
+                        <li><a className="pagination__link pagination__link--active" href>2</a></li>
+                        <li><a className="pagination__link" href>3</a></li>
+                        <li><a className="pagination__link" href>...</a></li>
                         <li>
-                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevron-left" /> </a>
+                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevron-left"/>
+                            </a>
                         </li>
                         <li>
-                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevrons-left" /> </a>
+                            <a className="pagination__link" href> <i className="w-4 h-4" data-feather="chevrons-left"/>
+                            </a>
                         </li>
                     </ul>
                     <select className="w-20 form-select box mt-3 sm:mt-0">
@@ -62,6 +84,12 @@ function Posts() {
                     </select>
                 </div>
             </div>
+            <ConfirmationModal
+                show={showModal}
+                onHide={handleCloseModal}
+                onConfirm={handleConfirm}
+                message="آیا از حذف این آیتم مطمئنید؟"
+            />
         </>
     )
 }
