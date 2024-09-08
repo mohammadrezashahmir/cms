@@ -1,5 +1,5 @@
 import axios from "axios"
-
+const TOKEN = ''
 export const getDataFromServer = async (url) => {
     const response = await axios.get(url, {
         headers: {
@@ -27,3 +27,12 @@ export const sendDataToServer = async (url, data, method = 'POST') => {
         throw error;
     }
 };
+
+export const deleteDataFromServer = async (url) => {
+    const response = await axios.delete(url, {
+        headers: {
+            'Authorization': 'Token f037cb5d1debb58ab2e261e7369d82529a0f1bef'
+        }
+    })
+    return response.data
+}

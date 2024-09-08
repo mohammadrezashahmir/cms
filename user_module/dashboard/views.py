@@ -9,7 +9,7 @@ from .forms import edit_user_info
 class admin_dashboard_page(View):
     def get(self, request: HttpRequest):
         current_user = request.user
-        form = edit_user_info(user_id=request.user.id, initial={
+        form = edit_user_info(user_id=current_user.id, initial={
             'user_name': current_user.username,
             'email': current_user.email,
             'phone_number': current_user.phone_number,

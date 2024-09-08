@@ -1,18 +1,20 @@
 import React from 'react'
 import NavSideMb from '../components/navSideMb.jsx'
 import NavSide from '../components/navSide.jsx'
-import {Outlet} from 'react-router-dom'
+import ProHeader from '../components/proHeader.jsx'
+import { Outlet } from 'react-router-dom'
 import UserContextProvider from "../context/UserContext";
 
 function MainLayout() {
     return (
         <>
             <UserContextProvider>
-                <NavSideMb/>
+                <NavSideMb />
                 <div className="flex">
-                    <NavSide/>
+                    <NavSide />
                     <div className="content">
-                        <Outlet/>
+                        <ProHeader />
+                        <Outlet />
                     </div>
                 </div>
             </UserContextProvider>

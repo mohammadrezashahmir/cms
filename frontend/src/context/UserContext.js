@@ -1,9 +1,9 @@
-import React, {createContext, useState, useEffect} from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
-import {getDataFromServer} from "../services/api";
+import { getDataFromServer } from "../services/api";
 
 export const userContext = createContext()
-const UserContextProvider = ({children}) => {
+const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState()
     useEffect(() => {
         const fetchAPI = async () => {
@@ -12,10 +12,10 @@ const UserContextProvider = ({children}) => {
         fetchAPI()
     }, [])
 
-    
+
     return (
         <userContext.Provider value={user}>
-            {children}
+            {user ? children : 'Loading'}
         </userContext.Provider>
     );
 };
