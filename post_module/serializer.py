@@ -1,4 +1,3 @@
-from django.db.models import QuerySet
 from rest_framework import serializers
 
 from user_module.models import User
@@ -9,29 +8,22 @@ from user_module.serializer import usersSerializer
 class postCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PostsCategory
-        fields = [
-            'id',
-            'title',
-        ]
+        fields = '__all__'
 
 
 class postTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostsTag
-        fields = [
-            'id',
-            'title',
-        ]
+        fields = '__all__'
 
 
 class postsGallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = PostsGallery
-        fields = ['id', 'image']
+        fields = '__all__'
 
 
 class postCommentSerializer(serializers.ModelSerializer):
-    is_active = serializers.BooleanField(default=True)
     reply_count = serializers.SerializerMethodField()
 
     class Meta:
@@ -47,27 +39,10 @@ class postCommentSerializer(serializers.ModelSerializer):
 
 
 class postsSerializer(serializers.ModelSerializer):
-    author = usersSerializer(read_only=True)
-    tags = postTagSerializer(many=True, read_only=True)
-    category = postCategorySerializer(many=True, read_only=True)
-    comment = serializers.SerializerMethodField()
+    gallery = postsGallerySerializer(many=True,read_only=True)
     total_comments = serializers.SerializerMethodField()
-
     class Meta:
         model = Posts
         fields = "__all__"
-
-    def get_comment(self, obj):
-        queryset = PostsComment.objects.filter(post=obj, is_active=True, parent=None).order_by('-date')
-        return postCommentSerializer(queryset, many=True).data
-
     def get_total_comments(self, obj):
         return PostsComment.objects.filter(post=obj, is_active=True).count()
-
-
-class postSerializer(serializers.ModelSerializer):
-    gallery = postsGallerySerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Posts
-        fields = "__all__"

@@ -1,3 +1,5 @@
+import {sendDataToServer} from "./api";
+
 export const convertToFormData = (values) => {
     const formData = new FormData();
     Object.keys(values).forEach(key => {

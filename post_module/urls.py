@@ -4,14 +4,13 @@ from rest_framework.routers import SimpleRouter
 from . import views
 
 router = SimpleRouter()
-router.register('manage', views.postAPI)
+router.register('manage', views.postsAPI)
 router.register('comments', views.postCommentAPI)
+router.register('gallery', views.galleryAPI)
 urlpatterns = [
     # api:
-    path('list/', views.postsAPI.as_view()),
-    path('getCategory/', views.getPostCategory.as_view()),
-    path('getTag/', views.getPostTag.as_view()),
-    path('gallery/<int:pk>/', views.galleryAPI.as_view()),
+    path('category/', views.postCategory.as_view()),
+    path('tag/', views.postTag.as_view()),
 
 ]
 urlpatterns += router.urls

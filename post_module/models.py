@@ -5,20 +5,26 @@ from user_module.models import User
 class PostsCategory(models.Model):
     parent = models.ForeignKey('PostsCategory', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=200)
-    url_title = models.CharField(max_length=200)
+    url_title = models.CharField(max_length=200, null=True)
 
+    def save(self, *args, **kwargs):
+        if self.url_title is None:
+            self.url_title = self.title
+        super().save(*args,**kwargs)
 
 class PostsTag(models.Model):
     title = models.CharField(max_length=200)
-    url_title = models.CharField(max_length=200)
-
-
+    url_title = models.CharField(max_length=200,null=True)
+    def save(self, *args, **kwargs):
+        if self.url_title is None:
+            self.url_title = self.title
+        super().save(*args,**kwargs)
 class Posts(models.Model):
     title = models.CharField(max_length=300)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True, editable=False)
-    category = models.ManyToManyField('PostsCategory')
+    category = models.ManyToManyField('PostsCategory',related_name='categories')
     tags = models.ManyToManyField('PostsTag')
     is_published = models.BooleanField(default=False)
     show_author = models.BooleanField(default=True)
@@ -34,7 +40,7 @@ class PostsGallery(models.Model):
 class PostVisit(models.Model):
     ip = models.CharField(max_length=50)
     post = models.ForeignKey('Posts', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank="")
 
 
 class PostsComment(models.Model):

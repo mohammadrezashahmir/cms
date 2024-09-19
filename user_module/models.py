@@ -8,3 +8,4 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='user_images', null=True, blank='')
     address = models.TextField(null=True, blank='')
     phone_number = models.IntegerField(null=True, blank='')
+    last_email_ask = models.DateTimeField(null=True, blank=True)

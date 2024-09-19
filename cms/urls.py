@@ -5,7 +5,6 @@ from admin_module.views import redirect_to_layout
 from cms import settings
 
 urlpatterns = [
-    path('', include('main_page_module.urls')),
     path('api/', include('api_module.urls')),
     path('admin/', include('admin_module.urls')),
     path('user/', include('user_module.urls')),
@@ -14,6 +13,3 @@ urlpatterns = urlpatterns + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
 
-urlpatterns += [
-    re_path(r'^(?!medias/|static/).*$', redirect_to_layout),
-]

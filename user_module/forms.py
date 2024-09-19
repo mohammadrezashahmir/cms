@@ -23,7 +23,7 @@ class register_form(forms.Form):
         'invalid': 'ایمیل نامعتبر است',
         'required': 'این فیلد اجباری است'
     })
-    password = forms.CharField(max_length=100, widget=forms.PasswordInput(
+    password = forms.CharField(max_length=100,min_length=8, widget=forms.PasswordInput(
         attrs={
             'class': 'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4',
             'id': 'password',
@@ -87,7 +87,7 @@ class forget_password_form(forms.Form):
 
 
 class reset_password_form(forms.Form):
-    password = forms.CharField(max_length=100, widget=forms.PasswordInput(
+    password = forms.CharField(max_length=100,min_length=8, widget=forms.PasswordInput(
         attrs={
             'class': 'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4',
             'id': 'password',
@@ -125,7 +125,7 @@ class change_password_form(forms.Form):
     ), label='کلمه عبور فعلی', error_messages={
         'required': 'این فیلد اجباری است'
     })
-    new_password = forms.CharField(max_length=100, widget=forms.PasswordInput(
+    new_password = forms.CharField(max_length=100,min_length=8, widget=forms.PasswordInput(
         attrs={
             'class': 'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4',
             'id': 'new_password',
