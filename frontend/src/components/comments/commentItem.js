@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import {getRelativeTime} from "@/services/helper";
-import {getDataFromServer} from "@/services/api";
+import {getRelativeTime} from "../../services/helper";
+import {getDataFromServer} from "../../services/api";
 
-const CommentItem = ({comment, setData}) => {
+const CommentItem = ({comment, setData, setReplyWho,url}) => {
     const [replies, setReplies] = useState([]);
     const [showReplies, setShowReplies] = useState(false);
     const showRepliesHandler = (parent_id) => {
         if (!showReplies && !replies.length) {
             try {
-                getDataFromServer(`/api/posts/comments/?parent_id=${parent_id}`)
+                getDataFromServer(`${url}?parent_id=${parent_id}`)
                     .then(res => {
                         setReplies(res)
                     })
@@ -29,9 +29,12 @@ const CommentItem = ({comment, setData}) => {
                 <div className="mr-3 flex-1">
                     <div className="flex items-center">
                         <div className="font-medium">{comment.author.username}</div>
-                        <button onClick={() => setData(prevState => {
-                            return {...prevState, parent: comment.id}
-                        })} className=" btn btn-rounded-secondary w-24  mr-auto text-xs text-gray-600">پاسخ دادن
+                        <button onClick={() => {
+                            setReplyWho(comment.author.username)
+                            setData(prevState => {
+                                return {...prevState, parent: comment.id}
+                            })
+                        }} className=" btn btn-rounded-secondary w-24  mr-auto text-xs text-gray-600">پاسخ دادن
                         </button>
                     </div>
                     <div className="text-gray-600 text-xs sm:text-sm">{getRelativeTime(comment.date)}</div>
@@ -43,18 +46,18 @@ const CommentItem = ({comment, setData}) => {
             {showReplies &&
                 <div className="replies box  mx-5">
                     {replies.map(reply => (
-                        <CommentItem comment={reply} key={reply.id} setData={setData}/>
+                        <CommentItem url={url} setReplyWho={setReplyWho} comment={reply} key={reply.id} setData={setData}/>
                     ))}
                 </div>
             }
             {comment?.replies?.length &&
                 <div className="replies box  mx-5">
                     {comment.replies && comment.replies.map(reply => (
-                        <CommentItem comment={reply} key={reply.id} setData={setData}/>
+                        <CommentItem url={url} setReplyWho={setReplyWho} comment={reply} key={reply.id} setData={setData}/>
                     ))}
                 </div>
             }
-               {
+            {
                 comment.reply_count > 0 &&
                 <div className='flex justify-center mt-2'>
                     <button className="btn btn-rounded-secondary w-24 ml-1 mb-2"

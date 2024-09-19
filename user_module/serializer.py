@@ -9,10 +9,6 @@ class usersSerializer(serializers.ModelSerializer):
             'id',
             'username',
             'image',
+            'is_superuser',
         ]
 
-
-class currentUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'image']
